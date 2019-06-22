@@ -4,22 +4,36 @@ import numpy as np
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from datetime import datetime, timedelta
+from selenium.webdriver.chrome.options import Options
+from pyvirtualdisplay import Display
+import time
 
-chrome_path = '/Users/weizheng/PycharmProjects/tickets/chromedriver'
+# chrome_path = '/Users/weizheng/PycharmProjects/tickets/chromedriver'
+chrome_options = Options()
+# chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_path = '/home/centos/football/chromedriver'
+
 url = 'https://qieman.com/idx-eval'
 today = str(datetime.now())[:10]
 
-def get_soup_eng_pr(url):
-    driver = webdriver.Chrome(executable_path=chrome_path)
-    # driver = webdriver.Firefox(executable_path=firefox_path)
+def get_soup(url):
+    display = Display(visible=0, size=(800, 600))
+    display.start()
+    driver = webdriver.Chrome(executable_path=chrome_path, chrome_options=chrome_options)
     driver.get(url)
+    time.sleep(5)
     html = driver.page_source
     soup = BeautifulSoup(html, 'lxml')
-    driver.close()
+    driver.quit()
+    display.stop()
     return soup
 
-soup = get_soup_eng_pr(url)
 
+
+soup = get_soup(url)
+# print(soup)
 
 if today == soup.find("span", {'class': 'qm-header-note'}).p.get_text().split(' ')[0]:
     print("YES, today got update for {}".format(today))
@@ -42,7 +56,7 @@ if today == soup.find("span", {'class': 'qm-header-note'}).p.get_text().split(' 
     df['dt'] = today
     print(df.shape)
     df.to_csv('../data/qm_' + today + '.txt', index=False)
-    print("saved file")
+    print("***saved file***")
 else:
-    print("there wasn't an update for {}".format(today))
+    print("***there was no update for {}***".format(today))
 
