@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import pandas as pd
 # import numpy as np
 # from urllib.request import urlopen
@@ -46,8 +47,8 @@ def get_fx(url):
     df = pd.DataFrame(table, columns=['N0', 'name', 'current_buy', 'cash_buy', 'current_sell', 'cash_sell',
                                 'boc_price', 'date', 'time', 'N99'])
     df = df.drop(['N0', 'N99'], axis=1)
-    df = df.loc[df.name.isin(['澳大利亚元', '加拿大元', '瑞士法郎', '欧元', '英镑',
-           '港币', '日元', '韩国元', '新加坡元', '泰国铢', '土耳其里拉', '美元', '南非兰特'])].reset_index(drop=True)
+    df = df.loc[df.name.isin(['澳大利亚元', '加拿大元', '瑞士法郎', '欧元', '英镑', '港币', '日元', '韩国元',
+                              '新加坡元', '泰国铢', '土耳其里拉', '美元', '南非兰特'])].reset_index(drop=True)
     return df
 
 
@@ -55,7 +56,7 @@ fx_data = get_fx(url)
 if fx_data['date'][0] == today:
     if not os.path.exists(fx_path + fx_fn):
         print(today, "Update")
-        fx_data.to_csv(fx_path + fx_fn, index=False)
+        fx_data.to_csv(fx_path + fx_fn, index=False, encoding='utf8')
     else:
         print('Breake - file existes')
 else:
