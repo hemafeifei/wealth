@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from pyvirtualdisplay import Display
 
 
-chrome_path = '/Users/weizheng/PycharmProjects/tickets/chromedriver'
+# chrome_path = '/Users/weizheng/PycharmProjects/tickets/chromedriver'
 
 
 url = 'https://danjuanapp.com/djmodule/value-center?channel=1300100141'
