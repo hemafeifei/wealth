@@ -19,7 +19,7 @@ chrome_path = '/home/centos/football/chromedriver'
 
 url = 'http://www.boc.cn/sourcedb/whpj/index.html'
 today = str(datetime.now())[:10]
-fx_path = '../fx_data/'
+fx_path = '/home/centos/WEM/fx_data/'
 fx_fn = 'fx_' + today + '.txt'
 
 def get_soup(url):
