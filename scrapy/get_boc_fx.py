@@ -55,11 +55,14 @@ fx_data = get_fx(url)
 if fx_data['date'][0] == today:
     if not os.path.exists(fx_path + fx_fn):
         print(today, "Update")
+        print("****"*5)
         fx_data.to_csv(fx_path + fx_fn, index=False, encoding='utf8')
     else:
         print('Breake - file existes')
+        print("====" * 5)
 else:
     print('Break - not today')
     print(today)
     print(fx_data.shape)
     print(fx_data['date'][0])
+    print("====" * 5)
