@@ -75,10 +75,12 @@ def parse_etf_data(soup):
             df_final = pd.concat([df_name, df_info], axis=1)
             df_final['dt'] = today
             print(df_final.shape)
+            print(today, "Update")
             df_final.to_csv('/home/centos/WEM/data/xq_' + today + '.txt', index=False)
             with open('/home/centos/WEM/data/ETF_his_xq.txt', 'a+') as f:
                 df_final.to_csv(f, header=False, index=False)
             print("write files append")
+            print("****" * 5)
 
 
 if today in soup_xq.find("title").get_text():
